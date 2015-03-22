@@ -1,0 +1,16 @@
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+
+<div id="header">
+	Štúdio krásy
+</div>	
+{% if salons_list %}
+    <ul>
+    {% for s in salons_list %}
+        <li><a href="/salon/{{ s.id }}/">{{ s.name}}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No salons are available.</p>
+{% endif %}
