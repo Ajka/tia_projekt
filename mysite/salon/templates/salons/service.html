@@ -6,8 +6,7 @@
 </head>
 
 <body>
-
-	<header>
+		<header>
 				{% if user.is_authenticated %}
 prihlásený používateľ: {{ user.username }}
 <a href="/salon/logout/">Odhlásiť sa</a><br />
@@ -17,29 +16,44 @@ prihlásený používateľ: {{ user.username }}
 		<a href="/salon/register/">Registrácia</a>
 {% endif %}
 	</header>	
+
 	<nav>
 
 	</nav>
 
 	<main>
-
-
 		<div>
 			<h1>Štúdio Krásy</h1>
 		</div>
 		<div>
 
-			{% if salons_list %}
-			<ul>
-				{% for s in salons_list %}
-				<h2> <li><a href="/salon/{{ s.id }}/">{{ s.name}}</a></li></h2>
-				<p>... </p>
+		
+			Služby: {{service}}
 
-				{% endfor %}
-			</ul>
-			{% else %}
-			<p>No salons are available.</p>
-			{% endif %}
+			<p>{{service.content_text}}</p>
+
+
+		{% if user.is_authenticated %}
+
+{% if comments %}
+    <ul>
+    {% for c in comments %}
+
+        <li>{{c.user}}
+        	{{c.date}}
+        	{{ c.content_text}}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No comments are available.</p>
+{% endif %}
+
+{% else %}
+
+	Pre zobrazenie komenárov sa musíte <a href="/salon/login/">prihlásiť.</a>
+{% endif %}
+
+
 
 
 		</div>
