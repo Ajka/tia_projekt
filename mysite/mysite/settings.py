@@ -23,6 +23,7 @@ SECRET_KEY = 'u&+0i20&b4u0f6d(-snm%w#&1sc#qplu7di3)_1(@^(i^1i#8s'
 DEBUG = True
 
 TEMPLATE_DEBUG = True
+TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'salon/templates')]
 
 ALLOWED_HOSTS = []
 

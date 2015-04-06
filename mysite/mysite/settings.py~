@@ -23,6 +23,7 @@ SECRET_KEY = 'u&+0i20&b4u0f6d(-snm%w#&1sc#qplu7di3)_1(@^(i^1i#8s'
 DEBUG = True
 
 TEMPLATE_DEBUG = True
+TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
 
 ALLOWED_HOSTS = []
 
@@ -63,7 +64,7 @@ DATABASES = {
         'NAME': 'salon_db',
         'USER': 'salon_user',
         'PASSWORD': 'tiaproject',
-        'HOST': '',
+        'HOST': '127.0.0.1',
         'PORT': '',
     }
 }
