@@ -1,70 +1,87 @@
 <!DOCTYPE html>
 <html lang="sk">
 <head>
-	<meta charset="utf-8">
-	<title>Studio Krasy</title>
+    <meta charset="utf-8">
+    <title>Studio Krasy</title>
 </head>
 
 <body>
-		<header>
-				{% if user.is_authenticated %}
-prihlásený používateľ: {{ user.username }}
-<a href="/salon/logout/">Odhlásiť sa</a><br />
-{% else %}
+<header>
+    {% if user.is_authenticated %}
+    prihlásený používateľ: {{ user.username }}
+    <a href="/salon/logout/">Odhlásiť sa</a><br/>
+    {% else %}
 
-		<a href="/salon/login/">Prihlásiť sa</a>
-		<a href="/salon/register/">Registrácia</a>
-{% endif %}
-	</header>	
+    <a href="/salon/login/">Prihlásiť sa</a>
+    <a href="/salon/register/">Registrácia</a>
+    {% endif %}
+</header>
 
-	<nav>
+<nav>
 
-	</nav>
+</nav>
 
-	<main>
-		<div>
-			<h1>Štúdio Krásy</h1>
-		</div>
-		<div>
-
-		
-			Služby: {{service}}
-
-			<p>{{service.content_text}}</p>
+<main>
+    <div>
+        <h1>Štúdio Krásy</h1>
+    </div>
+    <div>
 
 
-		{% if user.is_authenticated %}
+        Služby: {{service}}
 
-{% if comments %}
-    <ul>
-    {% for c in comments %}
-
-        <li>{{c.user}}
-        	{{c.date}}
-        	{{ c.content_text}}</li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No comments are available.</p>
-{% endif %}
-
-{% else %}
-
-	Pre zobrazenie komenárov sa musíte <a href="/salon/login/">prihlásiť.</a>
-{% endif %}
+        <p>{{service.content_text}}</p>
 
 
+        {% if user.is_authenticated %}
+        <h4> Komentár k článku: </h4>
+
+        <form id="article_form" method="post" action="" enctype="multipart/form-data" class="form-inline">
+         {% csrf_token %}
+         {{ form }}
+
+         <input class="btn btn-primary" type="submit" name="createComment" value="Vytvoriť komentár" />
+        </form>
 
 
-		</div>
+        {% if comments %}
+        <ul>
+            {% for c in comments %}
+
+            <li>{{c.user}}
+                {{c.date}}
+                {{ c.content_text}}
+            </li>
+                {% if user == c.user %}
+            <form id="user_form" method="post" action="" enctype="multipart/form-data">
+
+                <input type="submit" name="submit" value="Uprav"/>
+            </form>
+
+                {% endif %}
 
 
-	</main>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No comments are available.</p>
+        {% endif %}
+
+        {% else %}
+
+        Pre zobrazenie komenárov sa musíte <a href="/salon/login/">prihlásiť.</a>
+        {% endif %}
 
 
-	<footer>
-		<p>&copy;2015</p>
-	</footer>
+    </div>
+
+
+</main>
+
+
+<footer>
+    <p>&copy;2015</p>
+</footer>
 
 
 </body>

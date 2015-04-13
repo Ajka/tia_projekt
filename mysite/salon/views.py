@@ -4,10 +4,12 @@ from django.shortcuts import render
 # Create your views here.
 from django.http import HttpResponse, HttpResponseRedirect
 from salon.models import Salon, Service, UserProfile, Reservation, Comments
-from salon.forms import UserForm
+from salon.forms import UserForm, CommentForm
 from django.template import RequestContext, loader
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.utils.datetime_safe import datetime
+from django.contrib.auth.models import User
 
 def index(request):
     salons_list = Salon.objects.all()
@@ -28,13 +30,34 @@ def detail(request, salon_id):
 
     #return HttpResponse("You're looking at %s." % salon_id)
 
-def service(request, salon_id,service_id): 
-    s= Service.objects.get(pk=service_id)
+
+def service(request, salon_id, service_id):
+    s = Service.objects.get(pk=service_id)
     comments = Comments.objects.filter(service=s).order_by("date")
-    #template = loader.get_template('salons/detail.html')
+    u=request.user.id
+
+    # template = loader.get_template('salons/detail.html')
     #except Question.DoesNotExist:
-     #   raise Http404("Question does not exist")
-    return render(request, 'salons/service.html', {'service': s,'comments':comments})    
+    #   raise Http404("Question does not exist")
+    if request.method == 'POST':
+        form = CommentForm(data=request.POST)
+
+        if form.is_valid():
+            c = Comments()
+            c.service = s
+            c.user = request.user
+            c.content_text = form.data['text']
+            c.date = datetime.now()
+            c.save()
+
+
+        else:
+            print form.errors
+    else:
+        form = CommentForm()
+
+
+    return render(request, 'salons/service.html', {'service': s, 'comments': comments,'form':form,'uid':u})
 
 def register(request):
     registered = False
@@ -49,10 +72,11 @@ def register(request):
             user.save()
             registered = True
         else:
-            print user_form.errors    
+            print user_form.errors
 
     else:
         user_form = UserForm()
+
 
     return render(request,'salons/register.html', {'user_form': user_form, 'registered': registered} )      
 

@@ -1,6 +1,5 @@
-{% load staticfiles %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sk">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,10 +11,10 @@
     <title>Štúdio Krásy</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="{% static 'css/bootstrap.css' %}"  rel="stylesheet">
+    <link href="bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="jumbotron.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -33,19 +32,14 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Salon</a>
+        
+   
         </div>
         <div id="navbar" class="navbar-collapse collapse">
        {% if user.is_authenticated %}
 		prihlásený používateľ: {{ user.username }}
 		<a href="/salon/logout/">Odhlásiť sa</a><br />
-		{% if user.is_staff %}
+		{% if user.is_staff %}		
 		<a href="/admin/">Administrácia</a><br />
 			{% endif %}
 
@@ -55,19 +49,18 @@
            	<a href="/salon/login/" >Prihlásiť sa</a>
            	<a href="/salon/register/" >Registrácia</a>
            	{% endif %}
-
+		
 
 
           </form>
         </div><!--/.navbar-collapse -->
-
       </div>
     </nav>
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-       <h1>Štúdio Krásy</h1>
+        <h1>Štúdio Krásy</h1>
         <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
         <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
       </div>
@@ -76,14 +69,13 @@
     <div class="container">
       <!-- Example row of columns -->
       <div class="row">
-
-            {% if salons_list %}
+      		{% if salons_list %}
 			<ul>
 				{% for s in salons_list %}
 				<div class="col-md-4">
 				<h2> <li><a href="/salon/{{ s.id }}/">{{ s.name}}</a></li></h2>
-				<p>...Donec id elit non mi porta gravuismod. Donec sed odio dui. </p>
-
+				<p>...Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+				        <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
 				</div>
 
 				{% endfor %}
@@ -91,24 +83,19 @@
 			{% else %}
 			<p>No salons are available.</p>
 			{% endif %}
-       
 
-      </div>
+        
+
+    </div>
+    
 
       <hr>
 
       <footer>
-        <p>&copy; Company 2014</p>
+        <p>&copy; 2015</p>
       </footer>
-    </div> <!-- /container -->
+     <!-- /container -->
 
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../assets/js/ie10-viewport-bug-workaround.js"></script>
   </body>
 </html>
