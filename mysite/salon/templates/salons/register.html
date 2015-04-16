@@ -1,32 +1,44 @@
+{% load staticfiles %}
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Registration</title>
-    </head>
+<html lang="sk">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-    <body>
-        <h1>Registerácia</h1>
 
-        {% if registered %}
-        <strong>Registácia prebehla úspešne</strong>
-        <a href="/salon/">Return to the homepage.</a><br />
-        {% else %}
-        <strong>Zaregistrujte sa!</strong><br />
+    <title>Registracia</title>
 
-        <form id="user_form" method="post" action="/salon/register/"
-                enctype="multipart/form-data">
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'css/signin.css' %}" rel="stylesheet">
+</head>
 
-            {% csrf_token %}
+<body>
 
-            <!-- Display each form. The as_p method wraps each element in a paragraph
-                 (<p>) element. This ensures each element appears on a new line,
-                 making everything look neater. -->
-            {{ form.as_p }}
-       
 
-            <!-- Provide a button to click to submit the form. -->
-            <input type="submit" name="submit" value="Register" />
-        </form>
-        {% endif %}
-    </body>
+{% if registered %}
+<strong>Registácia prebehla úspešne</strong>
+<a href="/salon/">vrátiť sa na homepage.</a><br/>
+{% else %}
+
+
+<form id="user_form" method="post" action="/salon/register/" class="form-signin"   enctype="multipart/form-data">
+    <h1>Zaregistrujte sa!</h1>
+    {% csrf_token %}
+
+    <!-- Display each form. The as_p method wraps each element in a paragraph
+         (<p>) element. This ensures each element appears on a new line,
+         making everything look neater. -->
+    {{ user_form.as_p }}
+
+
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">Registrovať</button>
+</form>
+{% endif %}
+</body>
 </html>

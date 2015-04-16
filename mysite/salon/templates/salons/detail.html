@@ -1,53 +1,33 @@
-<!DOCTYPE html>
-<html lang="sk">
-<head>
-	<meta charset="utf-8">
-	<title>Studio Krasy</title>
-</head>
+{% extends 'salons/base.html' %}
 
-<body>
-	<header>
-				{% if user.is_authenticated %}
-prihlásený používateľ: {{ user.username }}
-<a href="/salon/logout/">Odhlásiť sa</a><br />
-{% else %}
+{% block body_block %}
 
-		<a href="/salon/login/">Prihlásiť sa</a>
-		<a href="/salon/register/">Registrácia</a>
-{% endif %}
-	</header>	
-	<nav>
+<div class="container">
+    <div>
+        <h2 class="sub-header">{{salon.name}}</h2>
+        popis: efpj rgpo úgp úrp g
+        gp júrpg rpúg regk p e
 
-	</nav>
-
-	<main>
-		<div>
-			<h1>Štúdio Krásy</h1>
-		</div>
-		<div>
-
-			{{salon.name}}
-
-{% if services %}
-    <ul>
-    {% for s in services %}
-        <li><a href="/salon/{{salon.id}}/{{ s.id }}/">{{ s.title}}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No services are available.</p>
-{% endif %}
-
-		</div>
+    </div>
+</div>
+{% endblock %}
 
 
-	</main>
+{% block side_block %}
+<div>
+    <div class="container">
+        <h3>Služby:</h3>
+        {% if services %}
+        <ul class="nav nav-sidebar">
+            {% for s in services %}
+            <li><a href="/salon/{{salon.id}}/{{ s.id }}/">{{ s.title}}</a></li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No services are available.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
 
 
-	<footer>
-		<p>&copy;2015</p>
-	</footer>
-
-
-</body>
-</html>

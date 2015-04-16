@@ -1,35 +1,11 @@
-<!DOCTYPE html>
-<html lang="sk">
-<head>
-    <meta charset="utf-8">
-    <title>Studio Krasy</title>
-</head>
-
-<body>
-<header>
-    {% if user.is_authenticated %}
-    prihlásený používateľ: {{ user.username }}
-    <a href="/salon/logout/">Odhlásiť sa</a><br/>
-    {% else %}
-
-    <a href="/salon/login/">Prihlásiť sa</a>
-    <a href="/salon/register/">Registrácia</a>
-    {% endif %}
-</header>
-
-<nav>
-
-</nav>
-
-<main>
-    <div>
-        <h1>Štúdio Krásy</h1>
-    </div>
-    <div>
+{% extends 'salons/detail.html' %}
+{% block body_block %}
 
 
-        Služby: {{service}}
-
+    <div><h2 class="sub-header">
+<a href="/salon/{{service.salon.id}}">{{service.salon}}</a></h2>
+        <h2 class="sub-header"> {{service}}</h2>
+Popis:
         <p>{{service.content_text}}</p>
 
 
@@ -75,14 +51,8 @@
 
     </div>
 
-
-</main>
-
-
-<footer>
-    <p>&copy;2015</p>
-</footer>
+{% endblock %}
 
 
-</body>
-</html>
+
+

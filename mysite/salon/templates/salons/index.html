@@ -1,6 +1,6 @@
 {% load staticfiles %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sk">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,7 +15,7 @@
     <link href="{% static 'css/bootstrap.css' %}"  rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="jumbotron.css" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}"  rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -39,19 +39,19 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Salon</a>
+          <!--<a href="">Štúdio Krásy</a>-->
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
+        <div class="navbar-form navbar-right" id="navbar" class="navbar-collapse collapse">
        {% if user.is_authenticated %}
-		prihlásený používateľ: {{ user.username }}
-		<a href="/salon/logout/">Odhlásiť sa</a><br />
+		prihlásený používateľ: {{ user.username }}<br>
+		<a href="/salon/logout/">Odhlásiť sa</a>
 		{% if user.is_staff %}
-		<a href="/admin/">Administrácia</a><br />
+		<a href="/admin/">Administrácia</a>
 			{% endif %}
 
 		{% else %}
 
-          <form class="navbar-form navbar-right">
+          <form >
            	<a href="/salon/login/" >Prihlásiť sa</a>
            	<a href="/salon/register/" >Registrácia</a>
            	{% endif %}
@@ -91,14 +91,14 @@
 			{% else %}
 			<p>No salons are available.</p>
 			{% endif %}
-       
+
 
       </div>
 
       <hr>
 
       <footer>
-        <p>&copy; Company 2014</p>
+        <p>&copy; 2015 A. Pisarcikova</p>
       </footer>
     </div> <!-- /container -->
 

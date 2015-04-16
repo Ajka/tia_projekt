@@ -26,13 +26,15 @@ def detail(request, salon_id):
     #template = loader.get_template('salons/detail.html')
     #except Question.DoesNotExist:
      #   raise Http404("Question does not exist")
-    return render(request, 'salons/detail.html', {'salon': s,'services':services})
+    return render(request, 'salons/detail.html', {'salon': s, 'services': services})
 
     #return HttpResponse("You're looking at %s." % salon_id)
 
 
 def service(request, salon_id, service_id):
     s = Service.objects.get(pk=service_id)
+    salon = Salon.objects.get(pk=salon_id)
+    services = Service.objects.filter(salon=salon).order_by("title")
     comments = Comments.objects.filter(service=s).order_by("date")
     u=request.user.id
 
@@ -57,7 +59,7 @@ def service(request, salon_id, service_id):
         form = CommentForm()
 
 
-    return render(request, 'salons/service.html', {'service': s, 'comments': comments,'form':form,'uid':u})
+    return render(request, 'salons/service.html', {'service': s,'services':services,'salon':salon, 'comments': comments,'form':form,'uid':u})
 
 def register(request):
     registered = False
