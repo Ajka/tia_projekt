@@ -32,9 +32,8 @@
 
     <div class="container">
 
-
         <form class="form-signin" id="login_form" method="post" action="/salon/login/">
-            <h2 class="form-signin-heading">Prihásenie:</h2>
+            <h2 class="form-signin-heading">Prihlásenie:</h2>
             {% csrf_token %}
             <label for="inputUsername" class="sr-only">Username</label>
              <input type="text" name="username" id="inputUsername" class="form-control"  placeholder="Username" required autofocus />

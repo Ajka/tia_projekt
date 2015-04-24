@@ -4,21 +4,51 @@ from django.shortcuts import render
 # Create your views here.
 from django.http import HttpResponse, HttpResponseRedirect
 from salon.models import Salon, Service, UserProfile, Reservation, Comments
-from salon.forms import UserForm, CommentForm
+from salon.forms import *
 from django.template import RequestContext, loader
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.utils.datetime_safe import datetime
-from django.contrib.auth.models import User
 
 def index(request):
     salons_list = Salon.objects.all()
-    #output = ', '.join([p.name for p in salons_list])
     template = loader.get_template('salons/index.html')
     context = RequestContext(request, {
         'salons_list': salons_list,
     })
     return HttpResponse(template.render(context))
+
+def user_info(request):
+    u = request.user
+    reservations = Reservation.objects.filter(user=u)
+
+    if request.method == 'POST' and "delete" in str(request.POST):
+            id = str(request.POST)[int(str(request.POST).index("delete")+6):]
+            number = int(id[:id.index("'")])
+            r = Reservation.objects.get(pk=number)
+            r.delete()
+    sum=0
+    for r in reservations:
+        sum +=r.service.price
+
+    return render(request, 'salons/user_info.html', {'user':u,'reservations': reservations, 'sum':sum})
+
+def reserve(request,salon_id,service_id):
+    s = Salon.objects.get(pk=salon_id)
+    service = Service.objects.filter(salon=s).get(pk=service_id)
+    form = ReservationForm()
+    reserved = False
+    if request.method == 'POST':
+        form = ReservationForm(data=request.POST)
+        if form.is_valid():
+            r = Reservation()
+            r.user = request.user
+            r.service = service
+            r.date = form.data['date']
+            r.time = form.data['time']
+            r.save()
+            reserved = True
+    return render(request, 'salons/reserve.html', {'reserved':reserved,'salon': s,'service': service, 'form':form})
 
 def detail(request, salon_id):
     s = Salon.objects.get(pk=salon_id)
@@ -27,7 +57,6 @@ def detail(request, salon_id):
     #except Question.DoesNotExist:
      #   raise Http404("Question does not exist")
     return render(request, 'salons/detail.html', {'salon': s, 'services': services})
-
     #return HttpResponse("You're looking at %s." % salon_id)
 
 
@@ -41,7 +70,7 @@ def service(request, salon_id, service_id):
     # template = loader.get_template('salons/detail.html')
     #except Question.DoesNotExist:
     #   raise Http404("Question does not exist")
-    if request.method == 'POST':
+    if request.method == 'POST' and 'createComment' in request.POST:
         form = CommentForm(data=request.POST)
 
         if form.is_valid():
@@ -58,7 +87,43 @@ def service(request, salon_id, service_id):
     else:
         form = CommentForm()
 
+        if request.method == 'POST' and "delete" in str(request.POST):
+            id = str(request.POST)[int(str(request.POST).index("delete")+6):]
+            number = int(id[:id.index("'")])
+            com = Comments.objects.get(pk=number)
+            com.delete()
 
+        if request.method == 'POST' and "uprav" in str(request.POST):
+            id = str(request.POST)[int(str(request.POST).index("uprav")+5):]
+            number = int(id[:id.index("'")])
+            com = Comments.objects.get(pk=number)
+            return render(request, 'salons/modify.html', {'comment': com, })
+
+    return render(request, 'salons/service.html', {'service': s,'services':services,'salon':salon, 'comments': comments,'form':form,'uid':u})
+
+
+def modify(request,salon_id):
+    salon = Salon.objects.get(pk=salon_id)
+    services = Service.objects.filter(salon=salon).order_by("title")
+    form = CommentForm()
+    u=request.user.id
+
+    if request.method == 'POST':
+        content = request.POST['comment_mod']
+        id = str(request.POST)[int(str(request.POST).index("comment")+7):]
+        number = int(id[:id.index("'")])
+        old = Comments.objects.get(pk=number)
+        s = old.service
+
+        comment = Comments()
+        comment.content_text = content
+        comment.user = old.user
+        comment.service = old.service
+        comment.date = datetime.now()
+        comment.save()
+        old.delete()
+
+    comments = Comments.objects.filter(service=comment.service).order_by("date")
     return render(request, 'salons/service.html', {'service': s,'services':services,'salon':salon, 'comments': comments,'form':form,'uid':u})
 
 def register(request):

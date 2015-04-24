@@ -1,6 +1,4 @@
-.jumbotron{
-    background-color: #FFE6FF;
-}
+
 
 h1{
     color: #5C194A;
@@ -8,10 +6,20 @@ h1{
 a{
     color: #5C194A;
 }
+footer{
+    text-align: center;
+}
+
+.jumbotron{
+    background-color: #FFE6FF;
+}
 
 .navbar-form a{
     color: #adadad;
 }
 .navbar-form{
     color: #ffffff;
+}
+.container h1{
+    padding-top: 1ex;
 }

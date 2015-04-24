@@ -3,13 +3,16 @@
 
 
     <div><h2 class="sub-header">
-<a href="/salon/{{service.salon.id}}">{{service.salon}}</a></h2>
+<a href="/salon/{{salon.id}}">{{service.salon}}</a></h2>
         <h2 class="sub-header"> {{service}}</h2>
 Popis:
         <p>{{service.content_text}}</p>
 
 
         {% if user.is_authenticated %}
+        <p> <a class="btn btn-primary btn-lg" href="/salon/{{salon.id}}/{{service.id}}/reserve" role="button">Objednať sa</a>
+       </p>
+
         <h4> Komentár k článku: </h4>
 
         <form id="article_form" method="post" action="" enctype="multipart/form-data" class="form-inline">
@@ -26,12 +29,18 @@ Popis:
 
             <li>{{c.user}}
                 {{c.date}}
-                {{ c.content_text}}
+                <p>{{ c.content_text}}</p>
             </li>
                 {% if user == c.user %}
             <form id="user_form" method="post" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input class="btn btn-primary" type="submit" name="delete{{c.id}}" value="zmaž" title="zmazať komentár" />
 
-                <input type="submit" name="submit" value="Uprav"/>
+                <!--<button type="submit" class="btn btn-primary" name={{c.id}} title="zmazať komentár" value="zmazať">
+                </button> -->
+                <input class="btn btn-primary" type="submit" name="uprav{{c.id}}" value="uprav" title="upraviť komentár" />
+
+
             </form>
 
                 {% endif %}
@@ -43,6 +52,7 @@ Popis:
         <p>No comments are available.</p>
         {% endif %}
 
+
         {% else %}
 
         Pre zobrazenie komenárov sa musíte <a href="/salon/login/">prihlásiť.</a>
@@ -50,6 +60,7 @@ Popis:
 
 
     </div>
+
 
 {% endblock %}
 

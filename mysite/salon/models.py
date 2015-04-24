@@ -23,16 +23,6 @@ class Service(models.Model):
 class UserProfile(models.Model):
 	user = models.OneToOneField(User)
 
-	
-	"""
-	role = models.CharField(max_length=10)
-	nick = models.CharField(max_length=20)
-	password = models.CharField(max_length=100)
-	name = models.CharField(max_length=30)
-	email = models.EmailField()
-	def __str__(self):
-		return self.nick
-	"""	
 
 class Reservation(models.Model):	
 	user = models.ForeignKey(User)
