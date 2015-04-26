@@ -3,6 +3,7 @@
 
 
     <div><h2 class="sub-header">
+
 <a href="/salon/{{salon.id}}">{{service.salon}}</a></h2>
         <h2 class="sub-header"> {{service}}</h2>
 Popis:
@@ -36,10 +37,7 @@ Popis:
                 {% csrf_token %}
                 <input class="btn btn-primary" type="submit" name="delete{{c.id}}" value="zmaž" title="zmazať komentár" />
 
-                <!--<button type="submit" class="btn btn-primary" name={{c.id}} title="zmazať komentár" value="zmazať">
-                </button> -->
-                <input class="btn btn-primary" type="submit" name="uprav{{c.id}}" value="uprav" title="upraviť komentár" />
-
+                <a class="btn btn-primary" href="/salon/{{salon.id}}/{{service.id}}/{{c.id}}" role="button">uprav</a>
 
             </form>
 

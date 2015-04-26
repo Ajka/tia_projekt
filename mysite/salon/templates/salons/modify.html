@@ -9,7 +9,7 @@
         {% csrf_token %}
         Text :
         <textarea rows="5" cols="50" class="input-block-level" name="comment_mod">{{ comment.content_text }}</textarea>
-        <input class="btn btn-primary" type="submit" name="comment{{c.id}}" value="Ok" />
+        <input class="btn btn-primary" type="submit" name="comment{{comment.id}}" value="Ok" />
 
         <!--<input type="hidden" name="id" value="{{ comment.id }}">
         <button class="btn btn-primary" name="modifySubmit" type="submit">Ok</button>-->

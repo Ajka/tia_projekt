@@ -11,7 +11,7 @@ urlpatterns = patterns('',
     url(r'^(?P<salon_id>\d+)/$', views.detail, name='detail'),
     url(r'^(?P<salon_id>\d+)/(?P<service_id>\d+)/$', views.service, name='service'),
     url(r'^(?P<salon_id>\d+)/(?P<service_id>\d+)/reserve/$', views.reserve, name='reserve'),
-    url(r'^(?P<salon_id>\d+)/(?P<service_id>\d+)/modify/$', views.modify, name='modify'),
+    url(r'^(?P<salon_id>\d+)/(?P<service_id>\d+)/(?P<comments_id>\d+)/$', views.modify, name='modify'),
 
 )
 
