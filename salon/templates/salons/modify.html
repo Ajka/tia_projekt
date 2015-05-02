@@ -1,0 +1,20 @@
+{% extends 'salons/detail.html' %}
+{% block body_block %}
+<div >
+    <p>{{salon}}</p>
+    <h2>Úprava komentára</h2>
+
+    <div class="container">
+    <form class="form-signin " id="modif_form" method="post" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        Text :
+        <textarea rows="5" cols="50" class="input-block-level" name="comment_mod">{{ comment.content_text }}</textarea>
+        <input class="btn btn-primary" type="submit" name="comment{{comment.id}}" value="Ok" />
+
+        <!--<input type="hidden" name="id" value="{{ comment.id }}">
+        <button class="btn btn-primary" name="modifySubmit" type="submit">Ok</button>-->
+    </form>
+    </div>
+
+</div>
+{% endblock %}

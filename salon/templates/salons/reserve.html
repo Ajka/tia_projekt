@@ -1,0 +1,27 @@
+{% extends 'salons/base.html' %}
+{% block body_block %}
+<div>
+    <a href="/salon/{{ service.salon.id }}/"><h2 class="sub-header">{{salon}}</h2></a>
+    {% if reserved %}
+<strong>Objednávka prebehla úspešne</strong>
+<a href="/salon/">vrátiť sa na homepage.</a><br/>
+{% else %}
+    <h3>Objednajte sa:</h3>
+
+                {% csrf_token %}
+                <p>Služba: {{service.title}} <br>cena: {{service.price}}  &euro;</p>
+
+                <form id="res_form" method="post" action="" enctype="multipart/form-data" >
+                  {% csrf_token %}
+                    {{ form.as_p}}
+
+                    <input class="btn btn-primary" type="submit" name="reservation" value="Objednať sa" />
+                 </form>
+    {% endif %}
+
+
+
+</div>
+
+
+{% endblock %}

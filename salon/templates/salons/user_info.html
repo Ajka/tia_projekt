@@ -1,0 +1,37 @@
+{% extends 'salons/base.html' %}
+{% block body_block %}
+<div>
+    <h3>Vaše objednávky:</h3>
+
+
+             {% if reservations %}
+        <ul>
+            {% for r in reservations %}
+
+            <li>
+                {{r.service}}<br>
+                {{r.date}}
+                {{r.time}}<br>
+                cena: {{r.service.price}} &euro;
+            </li>
+
+            <form id="reserv_form" method="post" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input class="btn btn-primary" type="submit" name="delete{{r.id}}" value="zrušiť rezerváciu" title="zmazať objednávku" />
+
+            </form>
+
+
+
+            {% endfor %}
+        </ul>
+        Spolu: {{sum}} &euro;
+
+        {% else %}
+        <p>Nemáte žiadne rezervácie.</p>
+        {% endif %}
+
+</div>
+
+
+{% endblock %}

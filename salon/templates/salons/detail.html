@@ -1,0 +1,52 @@
+{% extends 'salons/base.html' %}
+
+{% block body_block %}
+
+<div class="container">
+    <div>
+        <h2 class="sub-header">{{salon.name}}</h2>
+
+        <p>Vitajte!</p>
+
+        <p>Môžete si prezerať našu ponuku služieb. Po prihlásení sa môžete objednať a pridávať komentáte.<br>
+            Ak ešte nie ste zaregistrovaný, môžete sa <a href="/salon/register/">registrovať.</a>
+        </p>
+        <br><br>
+
+        <p><b>Otváracie hodiny:</b>
+        <ul>
+            <li><b>Po:</b> 8:00 - 12:00</li>
+            <li><b>Ut:</b> 10:00 - 18:00</li>
+            <li><b>St:</b> 10:00 - 18:00</li>
+            <li><b>Št:</b> 10:00 - 18:00</li>
+            <li><b>Pi:</b> 10:00 - 18:00</li>
+            <li><b>So:</b> 8:00 - 12:00</li>
+        </ul>
+        </p>
+
+    </div>
+    <div>
+
+    </div>
+</div>
+{% endblock %}
+
+
+{% block side_block %}
+<div>
+    <div class="container">
+        <h3>Služby:</h3>
+        {% if services %}
+        <ul class="nav nav-sidebar">
+            {% for s in services %}
+            <li><a href="/salon/{{salon.id}}/{{ s.id }}/">{{ s.title}}</a></li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No services are available.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+
