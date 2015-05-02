@@ -82,9 +82,10 @@
 			<ul>
 				{% for s in salons_list %}
 				<div class="col-md-4">
-				<h2> <li><a href="/salon/{{ s.id }}/">{{ s.name}}</li></h2>
+				 <li><a href="/salon/{{ s.id }}/"><h2>{{ s.name}}</h2>
 				<img src="../../static/img/{{s.id}}.jpg" class="img-circle" width="220" height="200">
                 </a>
+                </li>
 				</div>
 
 				{% endfor %}

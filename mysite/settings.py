@@ -10,7 +10,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-import dj_database_url
+#import dj_database_url
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -71,7 +71,7 @@ DATABASES = {
     }
 }
 
-DATABASES['default'] = dj_database_url.config()
+#DATABASES['default'] = dj_database_url.config()
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
@@ -91,6 +91,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'staticfiles'
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "salon/static"),
+    os.path.join(BASE_DIR, "static"),
 )
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
