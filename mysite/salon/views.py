@@ -84,7 +84,7 @@ def service(request, salon_id, service_id):
             c.content_text = form.data['text']
             c.date = datetime.now()
             c.save()
-
+            form = CommentForm()
 
         else:
             print form.errors

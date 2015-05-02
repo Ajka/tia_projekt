@@ -69,7 +69,7 @@
     <div class="jumbotron">
       <div class="container">
        <h1>Štúdio Krásy</h1>
-         <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+         <p>Dovoľte, aby sme Vás privítali v našom salóne krásy. Ponúka Vám široké spektrum služieb s vysokým štandardom kvality, profesionálne a komplexné programy pre exkluzívnu starostlivosť o Vaše vlasy, pleť a telo. </p>
         <!--<p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p> -->
       </div>
     </div>
@@ -82,9 +82,9 @@
 			<ul>
 				{% for s in salons_list %}
 				<div class="col-md-4">
-				<h2> <li><a href="/salon/{{ s.id }}/">{{ s.name}}</a></li></h2>
-				<p>...Donec id elit non mi porta gravuismod. Donec sed odio dui. </p>
-
+				<h2> <li><a href="/salon/{{ s.id }}/">{{ s.name}}</li></h2>
+				<img src="../../static/img/{{s.id}}.jpg" class="img-circle" width="220" height="200">
+                </a>
 				</div>
 
 				{% endfor %}

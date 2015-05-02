@@ -2,62 +2,69 @@
 {% block body_block %}
 
 
-    <div><h2 class="sub-header">
+<div><h2 class="sub-header">
 
-<a href="/salon/{{salon.id}}">{{service.salon}}</a></h2>
-        <h2 class="sub-header"> {{service}}</h2>
-Popis:
-        <p>{{service.content_text}}</p>
+    <a href="/salon/{{salon.id}}">{{service.salon}}</a></h2>
 
-
-        {% if user.is_authenticated %}
-        <p> <a class="btn btn-primary btn-lg" href="/salon/{{salon.id}}/{{service.id}}/reserve" role="button">Objednať sa</a>
-       </p>
-
-        <h4> Komentár k článku: </h4>
-
-        <form id="article_form" method="post" action="" enctype="multipart/form-data" class="form-inline">
-         {% csrf_token %}
-         {{ form }}
-
-         <input class="btn btn-primary" type="submit" name="createComment" value="Vytvoriť komentár" />
-        </form>
+    <h3 class="sub-header"> {{service}}</h3>
+    Popis:
+    <p>{{service.content_text}}</p>
 
 
-        {% if comments %}
-        <ul>
-            {% for c in comments %}
+    {% if user.is_authenticated %}
+    <p><a class="btn btn-primary btn-lg" href="/salon/{{salon.id}}/{{service.id}}/reserve" role="button">Objednať sa</a>
+    </p>
 
-            <li>{{c.user}}
-                {{c.date}}
-                <p>{{ c.content_text}}</p>
-            </li>
-                {% if user == c.user %}
+    <h4> Komentár k článku: </h4>
+
+    <form id="article_form" method="post" action="" enctype="multipart/form-data" class="form-inline">
+        {% csrf_token %}
+        {{ form }}
+
+        <input class="btn btn-primary" type="submit" name="createComment" value="Vytvoriť komentár"/>
+    </form>
+
+
+    {% if comments %}
+    <h3><b>Komentáre:</b></h3>
+    <ul>
+        {% for c in comments %}
+
+        <li class="comment">
+            <h4 class="comment_autor">{{c.user}}</h4>
+
+            <div class="comment_date">{{c.date}}</div>
+            <p><h4 class="comment_body">{{ c.content_text}}</h4>
+
+            {% if user == c.user %}
             <form id="user_form" method="post" action="" enctype="multipart/form-data">
                 {% csrf_token %}
-                <input class="btn btn-primary" type="submit" name="delete{{c.id}}" value="zmaž" title="zmazať komentár" />
+                <input class="btn btn-danger" type="submit" name="delete{{c.id}}" value="zmaž" title="zmazať komentár"/>
 
                 <a class="btn btn-primary" href="/salon/{{salon.id}}/{{service.id}}/{{c.id}}" role="button">uprav</a>
 
             </form>
+            </p>
+        </li>
 
-                {% endif %}
 
-
-            {% endfor %}
-        </ul>
-        {% else %}
-        <p>No comments are available.</p>
         {% endif %}
 
 
-        {% else %}
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No comments are available.</p>
+    {% endif %}
 
-        Pre zobrazenie komenárov sa musíte <a href="/salon/login/">prihlásiť.</a>
-        {% endif %}
+
+    {% else %}
+
+    Pre zobrazenie komenárov a objednanie sa musíte <a href="/salon/login/">prihlásiť.</a>
+    {% endif %}
 
 
-    </div>
+</div>
 
 
 {% endblock %}
