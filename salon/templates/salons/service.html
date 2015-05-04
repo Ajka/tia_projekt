@@ -12,10 +12,10 @@
 
 
     {% if user.is_authenticated %}
-    <p><a class="btn btn-primary btn-lg" href="/salon/{{salon.id}}/{{service.id}}/reserve" role="button">Objednať sa</a>
+    <p><a class="btn btn-success" href="/salon/{{salon.id}}/{{service.id}}/reserve" role="button">Objednať sa</a>
     </p>
 
-    <h4> Komentár k článku: </h4>
+    <h4> Pridajte komentár: </h4>
 
     <form id="article_form" method="post" action="" enctype="multipart/form-data" class="form-inline">
         {% csrf_token %}
