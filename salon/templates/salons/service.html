@@ -39,9 +39,17 @@
             {% if user == c.user %}
             <form id="user_form" method="post" action="" enctype="multipart/form-data">
                 {% csrf_token %}
-                <input class="btn btn-danger" type="submit" name="delete{{c.id}}" value="zmaž" title="zmazať komentár"/>
 
-                <a class="btn btn-primary" href="/salon/{{salon.id}}/{{service.id}}/{{c.id}}" role="button">uprav</a>
+                <button class="btn btn-danger" type="submit" name="delete{{c.id}}" value="zmaž"
+                        title="zmazať komentár"/>
+                <span class="glyphicon glyphicon-trash"></span>
+                </button>
+
+                <a class="btn btn-primary" href="/salon/{{salon.id}}/{{service.id}}/{{c.id}}" role="button">
+
+                    <span class="glyphicon glyphicon-pencil"></span>
+
+                </a>
 
             </form>
             </p>

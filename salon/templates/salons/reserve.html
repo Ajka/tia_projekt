@@ -1,5 +1,6 @@
 {% extends 'salons/base.html' %}
 {% block body_block %}
+
 <div>
     <a href="/salon/{{ service.salon.id }}/"><h2 class="sub-header">{{salon}}</h2></a>
     {% if reserved %}
@@ -15,12 +16,30 @@
                   {% csrf_token %}
                     {{ form.as_p}}
 
+
                     <input class="btn btn-primary" type="submit" name="reservation" value="Objednať sa" />
                  </form>
     {% endif %}
 
+          <div class='col-sm-6'>
+            <div class="form-group">
+                <div class='input-group date' id='datetimepicker1'>
+                    <input type='text' class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
 
-
+    <!--    <script src="jquery-1.9.1.min.js"></script>
+        <script src="bootstrap-datepicker.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker1').datetimepicker();
+            });
+        </script> -->
+    </div>
 </div>
 
 
